@@ -83,23 +83,22 @@ const register = async () => {
     password: password.value,
   });
 
+  if (isNewUser.success) {
+    router.push('/');
+
     firstName.value = '';
     lastName.value = '';
     email.value = '';
     password.value = '';
 
-  if (isNewUser.success) {
-    password.value = '';
-
     userExisted.value = '';
-
-    router.push('/dashboard');
   } else {
     userExisted.value = isNewUser.error;
 
-    setTimeout(() => {
-      userExisted.value = '';
-    }, 5000);
+   setTimeout(() => {
+     userExisted.value = '';
+
+   }, 5000);
   }
 };
 </script>

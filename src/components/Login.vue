@@ -67,7 +67,7 @@ const login = async () => {
     incorectUserData.value.incorectEmail = '';
     incorectUserData.value.incorectPassword = '';
 
-    router.push('/dashboard');
+    router.push('/');
   } else {
     if (loginSuccessful.error?.includes('email')) {
       incorectUserData.value.incorectEmail = loginSuccessful.error;

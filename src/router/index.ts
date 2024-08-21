@@ -5,7 +5,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'loginPage',
       component: () => import('../views/LoginPage.vue'),
     },
@@ -15,7 +15,7 @@ const router = createRouter({
       component: () => import('../views/RegistrationPage.vue'),
     },
     {
-      path: '/dashboard',
+      path: '/',
       name: 'dashboardPage',
       component: () => import('../views/DashboardPage.vue'),
       meta: { requiresAuth: true },

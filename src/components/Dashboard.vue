@@ -96,7 +96,7 @@ const logout = () => {
   if (user.currentUser) {
     user.logOutUser(user.currentUser?.id);
 
-    router.replace('/');
+    router.replace('/login');
   }
 };
 
@@ -108,7 +108,7 @@ const deleteUser = (id: number | undefined) => {
   if (id !== undefined) {
     user.removeUser(id);
 
-    router.replace('/');
+    router.replace('/register');
   }
 };
 </script>
