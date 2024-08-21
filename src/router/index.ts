@@ -1,10 +1,8 @@
 import { useUserStore } from '@/stores/user';
-import { createRouter, createWebHistory } from 'vue-router';
-
-const base = '/';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const router = createRouter({
-  history: createWebHistory(base),
+  history: createWebHashHistory(),
   routes: [
     {
       path: '/',
@@ -27,8 +25,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
+  const isAuthenticated = userStore.currentUser?.token || localStorage.getItem('currentUser');
 
-  if (to.meta.requiresAuth && !userStore.currentUser?.token) {
+  if (to.meta.requiresAuth && !isAuthenticated) {
     next({ name: 'loginPage' });
   } else {
     next();

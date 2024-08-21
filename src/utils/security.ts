@@ -7,10 +7,7 @@ export async function createPasswordHash(password: string): Promise<string> {
   return bcrypt.hash(password, salt);
 }
 
-export async function comparePassword(
-  password: string,
-  hashedPassword: string
-): Promise<boolean> {
+export async function comparePassword(password: string, hashedPassword: string): Promise<boolean> {
   return bcrypt.compare(password, hashedPassword);
 }
 

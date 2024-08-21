@@ -83,10 +83,12 @@ const register = async () => {
     password: password.value,
   });
 
-  if (isNewUser.success) {
     firstName.value = '';
     lastName.value = '';
     email.value = '';
+    password.value = '';
+
+  if (isNewUser.success) {
     password.value = '';
 
     userExisted.value = '';

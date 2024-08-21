@@ -68,9 +68,8 @@ export const useUserStore = defineStore('user', () => {
   };
 
   const removeUser = (id: number) => {
-
     logOutUser(id);
-    
+
     users.value = users.value.filter((user) => user.id !== id);
   };
 
