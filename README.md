@@ -1,5 +1,4 @@
-# Vue App
-# Demo[https://ihor-prodan.github.io/vue-app/#/]
+# Vue App [Demo](https://ihor-prodan.github.io/vue-app/#/)
 
 This is a simple Vue.js project. It allows users to sign up, log in, create tasks, and manage their accounts. The app is built with modern tools like Pinia for state management, Tailwind CSS for design, and TypeScript for better code quality.
 
