@@ -7,28 +7,28 @@
           label="First Name"
           type="text"
           v-model.trim="firstName"
-          :error="firstNameError"
+          :error="showError ? firstNameError : ''"
           placeholder="Enter your first name"
         />
         <Input
           label="Last Name"
           type="text"
           v-model.trim="lastName"
-          :error="lastNameError"
+          :error="showError ? lastNameError : ''"
           placeholder="Enter your last name"
         />
         <Input
           label="Email"
           type="email"
           v-model.trim="email"
-          :error="emailError || userExisted"
+          :error="showError ? emailError || userExisted : ''"
           placeholder="Enter your email"
         />
         <Input
           label="Password"
           type="password"
           v-model.trim="password"
-          :error="passwordError"
+          :error="showError ? passwordError : ''"
           placeholder="Enter your password"
         />
         <div>
@@ -69,10 +69,17 @@ const {
   lastNameError,
   emailError,
   passwordError,
+  validate,
 } = useFormValidation();
 
 const register = async () => {
   showError.value = true;
+
+  const isFormValid = await validate();
+
+  if (!isFormValid) {
+    return;
+  }
 
   userExisted.value = '';
 
@@ -95,10 +102,9 @@ const register = async () => {
   } else {
     userExisted.value = isNewUser.error;
 
-   setTimeout(() => {
-     userExisted.value = '';
-
-   }, 5000);
+    setTimeout(() => {
+      userExisted.value = '';
+    }, 5000);
   }
 };
 </script>

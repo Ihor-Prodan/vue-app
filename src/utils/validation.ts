@@ -4,7 +4,13 @@ import * as yup from 'yup';
 const validationSchema = yup.object({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
+  email: yup
+    .string()
+    .required('Email is required')
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      'Invalid email format. Use user@example.com'
+    ),
   password: yup
     .string()
     .min(6, 'Password must be at least 6 characters')
@@ -14,7 +20,7 @@ const validationSchema = yup.object({
 type FormValues = yup.InferType<typeof validationSchema>;
 
 export function useFormValidation() {
-  const { meta } = useForm<FormValues>({
+  const { meta, validate } = useForm<FormValues>({
     validationSchema,
   });
 
@@ -39,5 +45,6 @@ export function useFormValidation() {
     emailError,
     passwordError,
     meta,
+    validate,
   };
 }

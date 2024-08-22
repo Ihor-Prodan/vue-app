@@ -26,7 +26,7 @@
             <h2 class="text-xl font-semibold mb-2">Your Tasks</h2>
             <div class="mb-4">
               <input
-                v-model="queryTask"
+                v-model.trim="queryTask"
                 @keyup.enter="addTask"
                 type="text"
                 placeholder="Add a new task"
@@ -65,6 +65,7 @@ import { useTasksStore } from '@/stores/tasks';
 import { useUserStore } from '@/stores/user';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 const user = useUserStore();
 const tasks = useTasksStore();
@@ -79,7 +80,7 @@ const filteredTasks = computed(() => {
 });
 
 const addTask = () => {
-  if (user.currentUser?.id) {
+  if (user.currentUser?.id && queryTask.value !== '') {
     const newTask = {
       title: queryTask.value,
       userId: user.currentUser.id,

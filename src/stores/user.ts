@@ -42,13 +42,13 @@ export const useUserStore = defineStore('user', () => {
     const registeredUser = users.value.find((user) => user.email === email);
 
     if (!registeredUser) {
-      return { success: false, error: 'Incorrect email' };
+      return { success: false, error: 'No account found with this email address' };
     }
 
     const isValidPassword = await comparePassword(password, registeredUser.password);
 
     if (!isValidPassword) {
-      return { success: false, error: 'Incorrect password' };
+      return { success: false, error: 'Incorrect password. Please try again' };
     }
 
     const newToken = createToken(registeredUser.email);
@@ -62,6 +62,7 @@ export const useUserStore = defineStore('user', () => {
 
   const logOutUser = (id: number) => {
     const userLogOut = users.value.find((user) => user.id === id);
+
     if (userLogOut) {
       currentUser.value = null;
     }

@@ -11,7 +11,6 @@
       :placeholder="placeholder"
       v-model.trim="dynamicValue"
       @input="updateValue"
-      required
     />
     <span v-if="error" class="text-red-500 text-sm">{{ error }}</span>
   </div>

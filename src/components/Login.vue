@@ -7,7 +7,7 @@
           label="Email"
           type="email"
           v-model="email"
-          :error="emailError || incorectUserData.incorectEmail"
+          :error="showErrors ? emailError || incorectUserData.incorectEmail : ''"
           placeholder="Enter your email"
         />
 
@@ -15,7 +15,7 @@
           label="Password"
           type="password"
           v-model="password"
-          :error="passwordError || incorectUserData.incorectPassword"
+          :error="showErrors ? passwordError || incorectUserData.incorectPassword : ''"
           placeholder="Enter your password"
         />
 
@@ -45,8 +45,10 @@ import { useRouter } from 'vue-router';
 import { useFormValidation } from '@/utils/validation';
 import Input from './Input.vue';
 import { ref } from 'vue';
-const { email, password, emailError, passwordError } = useFormValidation();
+
+const { email, password, emailError, passwordError, validate } = useFormValidation();
 const showErrors = ref(false);
+
 const incorectUserData = ref({
   incorectEmail: '',
   incorectPassword: '',
@@ -57,6 +59,12 @@ const router = useRouter();
 
 const login = async () => {
   showErrors.value = true;
+
+  const isFormValid = await validate();
+
+  if (!isFormValid) {
+    return;
+  }
 
   incorectUserData.value.incorectEmail = '';
   incorectUserData.value.incorectPassword = '';
