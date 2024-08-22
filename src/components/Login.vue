@@ -82,11 +82,6 @@ const login = async () => {
     } else if (loginSuccessful.error?.includes('password')) {
       incorectUserData.value.incorectPassword = loginSuccessful.error;
     }
-
-    setTimeout(() => {
-      incorectUserData.value.incorectEmail = '';
-      incorectUserData.value.incorectPassword = '';
-    }, 5000);
   }
 };
 </script>

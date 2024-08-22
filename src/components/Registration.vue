@@ -91,20 +91,16 @@ const register = async () => {
   });
 
   if (isNewUser.success) {
-    router.push('/');
+    router.push('/').then(() => {
+      firstName.value = '';
+      lastName.value = '';
+      email.value = '';
+      password.value = '';
 
-    firstName.value = '';
-    lastName.value = '';
-    email.value = '';
-    password.value = '';
-
-    userExisted.value = '';
+      userExisted.value = '';
+    });
   } else {
     userExisted.value = isNewUser.error;
-
-    setTimeout(() => {
-      userExisted.value = '';
-    }, 5000);
   }
 };
 </script>

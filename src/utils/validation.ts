@@ -2,8 +2,14 @@ import { useField, useForm } from 'vee-validate';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
+  firstName: yup
+    .string()
+    .required('First name is required')
+    .matches(/^[a-zA-ZÀ-ÿ\-'\s]+$/, 'Please use only letters in the First name'),
+  lastName: yup
+    .string()
+    .required('Last name is required')
+    .matches(/^[a-zA-ZÀ-ÿ\-'\s]+$/, 'Please use only letters in the Last name'),
   email: yup
     .string()
     .required('Email is required')

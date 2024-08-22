@@ -22,6 +22,10 @@ export const useUserStore = defineStore('user', () => {
       return { success: false, error: 'Email is already in use' };
     }
 
+    if (!userData.password) {
+      return { success: false, error: '' };
+    }
+
     const securityPassword = await createPasswordHash(userData.password);
     const createUserToken = await createToken(userData.email);
 
@@ -43,6 +47,10 @@ export const useUserStore = defineStore('user', () => {
 
     if (!registeredUser) {
       return { success: false, error: 'No account found with this email address' };
+    }
+
+    if (!password) {
+      return { success: false, error: 'Password is required' };
     }
 
     const isValidPassword = await comparePassword(password, registeredUser.password);
