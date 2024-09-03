@@ -9,43 +9,23 @@
         { 'border-red-500': error },
       ]"
       :placeholder="placeholder"
-      v-model.trim="dynamicValue"
-      @input="updateValue"
+      v-model.trim="model"
     />
     <span v-if="error" class="text-red-500 text-sm">{{ error }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { defineProps, defineEmits } from 'vue';
+import { defineProps } from 'vue';
 
-const props = defineProps({
-  modelValue: String,
-  label: String,
-  type: {
-    type: String,
-    default: 'text',
-  },
-  placeholder: String,
-  error: String,
-  inputClass: String,
-});
+interface Props {
+  label: string;
+  type: string;
+  placeholder: string;
+  error: string | undefined;
+  inputClass?: string;
+}
 
-const emit = defineEmits(['update:modelValue']);
-
-const dynamicValue = ref(props.modelValue);
-
-watch(
-  () => props.modelValue,
-  (newValue) => {
-    dynamicValue.value = newValue;
-  }
-);
-
-const updateValue = (event: Event) => {
-  const input = event.target as HTMLInputElement;
-
-  emit('update:modelValue', input.value);
-};
+defineProps<Props>();
+const model = defineModel<string>('modelValue');
 </script>

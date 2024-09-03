@@ -44,12 +44,12 @@ import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 import { useFormValidation } from '@/utils/validation';
 import Input from './Input.vue';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 const { email, password, emailError, passwordError, validate } = useFormValidation();
 const showErrors = ref(false);
 
-const incorectUserData = ref({
+const incorectUserData = reactive({
   incorectEmail: '',
   incorectPassword: '',
 });
@@ -66,21 +66,21 @@ const login = async () => {
     return;
   }
 
-  incorectUserData.value.incorectEmail = '';
-  incorectUserData.value.incorectPassword = '';
+  incorectUserData.incorectEmail = '';
+  incorectUserData.incorectPassword = '';
 
   const loginSuccessful = await user.loginUser(email.value, password.value);
 
   if (loginSuccessful.success) {
-    incorectUserData.value.incorectEmail = '';
-    incorectUserData.value.incorectPassword = '';
+    incorectUserData.incorectEmail = '';
+    incorectUserData.incorectPassword = '';
 
     router.push('/');
   } else {
     if (loginSuccessful.error?.includes('email')) {
-      incorectUserData.value.incorectEmail = loginSuccessful.error;
+      incorectUserData.incorectEmail = loginSuccessful.error;
     } else if (loginSuccessful.error?.includes('password')) {
-      incorectUserData.value.incorectPassword = loginSuccessful.error;
+      incorectUserData.incorectPassword = loginSuccessful.error;
     }
   }
 };
